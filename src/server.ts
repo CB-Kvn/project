@@ -3,14 +3,14 @@ import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import compression from 'compression';
-import { PrismaClient } from '@prisma/client';
 import { Config } from './config/config';
 import { Logger } from './config/logger';
 import { errorMiddleware } from './middleware/error.middleware';
 import { authRoutes } from './routes/auth.routes';
+import { PrismaClient } from '@prisma/client';
 
 const app = express();
-export const prisma = new PrismaClient();
+export const prisma= new PrismaClient();
 
 // Middleware
 app.use(cors());

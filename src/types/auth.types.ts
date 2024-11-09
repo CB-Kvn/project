@@ -1,5 +1,5 @@
 export interface LoginDTO {
-  email: string;
+  codUsuario: string;
   password: string;
 }
 
@@ -19,21 +19,53 @@ export interface TokenPair {
 }
 
 export interface ResponseLogin {
-  idUsuario: number,
-  idEmpresa: number,
-  codUsuario: string,
-  nombres: string,
-  apellidos: string,
-  correo_Electronico: string | null,
-  rolId: number | null,
-  areaId: number | null,
-  empleadoId: number | null,
-  intentos_Fallidos: bigint | null,
-  bloqueado: bigint | null,
-  sesion_Iniciada: bigint | null,
-  multiple_Sesion: bigint | null,
-  contrasena_Caduca: bigint | null,
-  fecha_Creacion: Date | null,
-  fecha_Modifica: Date | null,
-  estado: bigint | null
+  IdUsuario: number;
+  IdEmpresa: number;
+  CodUsuario: string;
+  Nombres: string;
+  Apellidos: string;
+  Correo_Electronico?: string;
+  RolId?: number;
+  AreaId?: number;
+  EmpleadoId?: number;
+  Intentos_Fallidos?: number;
+  Bloqueado?: boolean;
+  Sesion_Iniciada?: boolean;
+  Multiple_Sesion?: boolean;
+  Contrasena_Caduca?: boolean;
+  Fecha_Creacion?: Date;
+  Fecha_Modifica?: Date;
+  Estado?: boolean;
 }
+
+export interface RegisterUsuarioDTO {
+  IdEmpresa: number;
+  CodUsuario: string;
+  Nombres: string;
+  Apellidos: string;
+  Contrasena: string;
+  Correo_Electronico?: string;
+  RolId?: number;
+  AreaId?: number;
+  Autenticacion?: boolean;
+  EmpleadoId?: number;
+  Intentos_Fallidos?: number;
+  Bloqueado?: boolean;
+  Sesion_Iniciada?: boolean;
+  Multiple_Sesion?: boolean;
+  Cambiar_Password_Logon?: boolean;
+  Contrasena_Caduca?: boolean;
+  Version_Sistema?: number;
+  Fecha_Contrasena?: Date;
+  Usuario_Creacion?: string;
+  Fecha_Creacion?: Date;
+  Equipo_Creacion?: string;
+  Usuario_Modifica?: string;
+  Fecha_Modifica?: Date;
+  Equipo_Modifica?: string;
+  Estado?: boolean;
+}
+
+export interface Usuario extends RegisterUsuarioDTO {
+  IdUsuario?: number;
+} 

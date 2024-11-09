@@ -1,6 +1,5 @@
 generator client {
   provider = "prisma-client-js"
-  binaryTargets = ["native", "debian-openssl-1.0.x"]
 }
 
 datasource db {
@@ -8,21 +7,189 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id            Int       @id @default(autoincrement())
-  email         String    @unique
-  password      String
-  name          String?
-  refreshTokens RefreshToken[]
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+model Area {
+  IdArea           Int       @id(map: "PK_Area") @default(autoincrement())
+  CodArea          String    @db.Char(10)
+  Nombre           String    @db.VarChar(50)
+  Descripcion      String?   @db.VarChar(150)
+  AreaId           Int?
+  Usuario_Creacion String?   @db.NVarChar(30)
+  Fecha_Creacion   DateTime? @db.DateTime
+  Equipo_Creacion  String?   @db.NVarChar(50)
+  Usuario_Modifica String?   @db.NVarChar(30)
+  Fecha_Modifica   DateTime? @db.DateTime
+  Equipo_Modifica  String?   @db.NVarChar(50)
+  Estado           Boolean?
 }
 
-model RefreshToken {
-  id        Int      @id @default(autoincrement())
-  token     String   @unique
-  userId    Int
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  expiresAt DateTime
-  createdAt DateTime @default(now())
+model Departamentos {
+  IdDepartamento   Int       @id(map: "PK_Departamentos") @default(autoincrement())
+  IdPais           Int
+  Descripcion      String    @db.NVarChar(70)
+  Usuario_Creacion String?   @db.NVarChar(30)
+  Fecha_Creacion   DateTime? @db.DateTime
+  Equipo_Creacion  String?   @db.NVarChar(50)
+  Usuario_Modifica String?   @db.NVarChar(30)
+  Fecha_Modifica   DateTime? @db.DateTime
+  Equipo_Modifica  String?   @db.NVarChar(50)
+  Estado           Boolean?
+}
+
+model Menu {
+  IdMenu           Int       @id(map: "PK_Menu") @default(autoincrement())
+  Menu             String    @db.NVarChar(250)
+  Descripcion      String?   @db.NVarChar(250)
+  Url              String?   @db.NVarChar(250)
+  ImagenUrl        String?   @db.NVarChar(250)
+  Tag              String?   @db.NVarChar(30)
+  Usuario_Creacion String?   @db.NVarChar(30)
+  Fecha_Creacion   DateTime? @db.DateTime
+  Equipo_Creacion  String?   @db.NVarChar(50)
+  Usuario_Modifica String?   @db.NVarChar(30)
+  Fecha_Modifica   DateTime? @db.DateTime
+  Equipo_Modifica  String?   @db.NVarChar(50)
+  Estado           Boolean?
+}
+
+model Opcion {
+  IdOpcion         Int       @id(map: "PK_Opcion") @default(autoincrement())
+  MenuId           Int
+  OpcionId         Int?
+  Nombre_Opcion    String    @db.NVarChar(250)
+  Prioridad        Int?
+  Tag              String?   @db.NVarChar(30)
+  Usuario_Creacion String?   @db.NVarChar(30)
+  Fecha_Creacion   DateTime? @db.DateTime
+  Equipo_Creacion  String?   @db.NVarChar(50)
+  Usuario_Modifica String?   @db.NVarChar(30)
+  Fecha_Modifica   DateTime? @db.DateTime
+  Equipo_Modifica  String?   @db.NVarChar(50)
+  Estado           Boolean?
+}
+
+model Pais {
+  IdPais           Int       @id(map: "PK_Pais") @default(autoincrement())
+  Descripcion      String    @db.NVarChar(70)
+  Usuario_Creacion String?   @db.NVarChar(30)
+  Fecha_Creacion   DateTime? @db.DateTime
+  Equipo_Creacion  String?   @db.NVarChar(50)
+  Usuario_Modifica String?   @db.NVarChar(30)
+  Fecha_Modifica   DateTime? @db.DateTime
+  Equipo_Modifica  String?   @db.NVarChar(50)
+  Estado           Boolean?
+}
+
+model PermisoAdicional {
+  IdPermisoAdicional Int       @id(map: "PK_PermisoAdicional") @default(autoincrement())
+  IdUsuario          Int?
+  Descripcion        String?   @db.NVarChar(50)
+  NombreTabla        String?   @db.NVarChar(50)
+  Codigo             String?   @db.VarChar(20)
+  Usuario_Creacion   String?   @db.NVarChar(30)
+  Fecha_Creacion     DateTime? @db.DateTime
+  Equipo_Creacion    String?   @db.NVarChar(50)
+  Usuario_Modifica   String?   @db.NVarChar(30)
+  Fecha_Modifica     DateTime? @db.DateTime
+  Equipo_Modifica    String?   @db.NVarChar(50)
+  Estado             Boolean?
+}
+
+model PermisoUsuario {
+  IdPermiso        Int       @id(map: "PK_PermisoUsuario") @default(autoincrement())
+  Descripcion      String    @db.NVarChar(250)
+  IdUsuario        Int       @db.SmallInt
+  MenuId           Int?
+  IdOpcion         Int?
+  Tag              String?   @db.NVarChar(30)
+  Usuario_Creacion String?   @db.NVarChar(30)
+  Fecha_Creacion   DateTime? @db.DateTime
+  Equipo_Creacion  String?   @db.NVarChar(50)
+  Usuario_Modifica String?   @db.NVarChar(30)
+  Fecha_Modifica   DateTime? @db.DateTime
+  Equipo_Modifica  String?   @db.NVarChar(50)
+  Estado           Boolean?
+}
+
+model Rol {
+  IdRol            Int       @id(map: "PK_Rol") @default(autoincrement())
+  Nombre           String    @db.NVarChar(250)
+  Descripcion      String?   @db.NVarChar(250)
+  Usuario_Creacion String?   @db.NVarChar(30)
+  Fecha_Creacion   DateTime? @db.DateTime
+  Equipo_Creacion  String?   @db.NVarChar(50)
+  Usuario_Modifica String?   @db.NVarChar(30)
+  Fecha_Modifica   DateTime? @db.DateTime
+  Equipo_Modifica  String?   @db.NVarChar(50)
+  Estado           Boolean?
+}
+
+model RolPermiso {
+  IdRolPermiso     Int       @id(map: "PK_RolPermiso") @default(autoincrement())
+  Descripcion      String    @db.NVarChar(250)
+  IdUsuario        Int       @db.SmallInt
+  MenuId           Int?
+  IdOpcion         Int?
+  Nuevo            Boolean
+  Editar           Boolean
+  Eliminar         Boolean
+  Consultar        Boolean
+  Procesar         Boolean
+  Cierre_Mensual   Boolean
+  Cierre_Anual     Boolean
+  Cambiar_Periodo  Boolean
+  Anular           Boolean
+  Incrementar      Boolean
+  Aprobado         Boolean
+  Autorizado       Boolean
+  G_Pedido         Boolean?
+  G_NDebito        Boolean?
+  G_NCredito       Boolean?
+  G_Aviso          Boolean?
+  Imprimir         Boolean?
+  Adjuntar         Boolean?
+  G_Factura        Boolean?
+  Usuario_Creacion String?   @db.NVarChar(30)
+  Fecha_Creacion   DateTime? @db.DateTime
+  Equipo_Creacion  String?   @db.NVarChar(50)
+  Usuario_Modifica String?   @db.NVarChar(30)
+  Fecha_Modifica   DateTime? @db.DateTime
+  Equipo_Modifica  String?   @db.NVarChar(50)
+  Estado           Boolean?
+}
+
+model Users {
+  id        Int      @id(map: "PK__Users__3213E83F8382F7BF") @default(autoincrement())
+  email     String   @unique(map: "UQ__Users__AB6E6164F38CBC32") @db.NVarChar(255)
+  password  String   @db.NVarChar(255)
+  createdAt DateTime @db.DateTimeOffset
+  updatedAt DateTime @db.DateTimeOffset
+}
+
+model Usuario {
+  IdUsuario              Int       @id(map: "PK_Usuario") @default(autoincrement()) @db.SmallInt
+  IdEmpresa              Int
+  CodUsuario             String    @db.NVarChar(30)
+  Nombres                String    @db.NVarChar(50)
+  Apellidos              String    @db.NVarChar(50)
+  Contrasena             String    @db.NVarChar(250)
+  Correo_Electronico     String?   @db.NVarChar(150)
+  RolId                  Int?
+  AreaId                 Int?
+  Autenticacion          Boolean?
+  EmpleadoId             Int?
+  Intentos_Fallidos      Int?
+  Bloqueado              Boolean?
+  Sesion_Iniciada        Boolean?
+  Multiple_Sesion        Boolean?
+  Cambiar_Password_Logon Boolean?
+  Contrasena_Caduca      Boolean?
+  Version_Sistema        Int?
+  Fecha_Contrasena       DateTime? @db.DateTime
+  Usuario_Creacion       String?   @db.NVarChar(30)
+  Fecha_Creacion         DateTime? @db.DateTime
+  Equipo_Creacion        String?   @db.NVarChar(50)
+  Usuario_Modifica       String?   @db.NVarChar(30)
+  Fecha_Modifica         DateTime? @db.DateTime
+  Equipo_Modifica        String?   @db.NVarChar(50)
+  Estado                 Boolean?
 }

@@ -8,8 +8,8 @@ export const Config = {
   jwtAccessExpiresIn: process.env.JWT_ACCESS_EXPIRES_IN || '15m',
   jwtRefreshExpiresIn: process.env.JWT_REFRESH_EXPIRES_IN || '1d',
   jwtRefreshSecret: process.env.JWT_REFRESH_SECRET || 'your-refresh-secret-key',
-  urlAD: 'ldap://your-ldap-url', // URL de tu servidor LDAP (e.g., ldap://ad.company.com)
-  baseDNAD: 'dc=company,dc=com', // DN base de tu organización (e.g., dc=company,dc=com)
-  usernameAD: 'your-username', // Usuario con permisos de acceso
-  passwordAD: 'your-password', // Contraseña del usuario
+  ldap_url: process.env.LDAP_URL,
+  ldap_user: process.env.LDAP_USER,
+  ldap_password: process.env.LDAP_PASSWORD,
+  ldap_base_dn: process.env.LDAP_BASE_DN,
 };

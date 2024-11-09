@@ -6,35 +6,34 @@ import { authMiddleware } from '../middleware/auth.middleware';
 
 const router = Router();
 
-router.post(
-  '/register',
-  [
-    body('email').isEmail().normalizeEmail(),
-    body('password').isLength({ min: 8 }),
-    body('name').optional().trim().notEmpty(),
-    validateRequest,
-  ],
-  AuthController.register
-);
+// router.post(
+//   '/register',
+//   [
+//     body('Correo_Electronico').isEmail().normalizeEmail(),
+//     body('Contrasena').isLength({ min: 8 }),
+//     validateRequest,
+//   ],
+//   AuthController.register
+// );
 
 router.post(
   '/login',
   [
-    body('email').isEmail().normalizeEmail(),
+    body('codUsuario').isString().notEmpty(),
     body('password').notEmpty(),
     validateRequest,
   ],
   AuthController.login
 );
 
-router.post(
-  '/refresh',
-  [
-    body('refreshToken').notEmpty(),
-    validateRequest,
-  ],
-  AuthController.refresh
-);
+// router.post(
+//   '/refresh',
+//   [
+//     body('refreshToken').notEmpty(),
+//     validateRequest,
+//   ],
+//   AuthController.refresh
+// );
 
 router.post(
   '/logout',
